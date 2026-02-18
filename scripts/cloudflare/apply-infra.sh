@@ -6,6 +6,7 @@ WORKER_ENTRYPOINT="workers/canonical-redirect.mjs"
 WORKER_MAIN_MODULE="canonical-redirect.mjs"
 WORKER_COMPAT_DATE="${WORKER_COMPAT_DATE:-2026-02-18}"
 WORKER_NAME="${WORKER_NAME:-tyrum-host-redirects}"
+MARKETING_PAGES_PROJECT="${MARKETING_PAGES_PROJECT:-tyrum-ai-marketing}"
 MARKETING_PAGES_HOST="${MARKETING_PAGES_HOST:-tyrum-ai-marketing.pages.dev}"
 DOCS_PAGES_HOST="${DOCS_PAGES_HOST:-tyrum-docs.pages.dev}"
 
@@ -20,6 +21,7 @@ Required environment variables:
   CLOUDFLARE_ZONE_ID_TYRUM_COM
 
 Optional environment variables:
+  MARKETING_PAGES_PROJECT (default: tyrum-ai-marketing)
   MARKETING_PAGES_HOST  (default: tyrum-ai-marketing.pages.dev)
   DOCS_PAGES_HOST       (default: tyrum-docs.pages.dev)
   WORKER_NAME           (default: tyrum-host-redirects)
@@ -81,6 +83,28 @@ cf_api_json() {
   fi
 
   printf '%s' "$response"
+}
+
+ensure_pages_domain() {
+  local project_name="$1"
+  local domain_name="$2"
+
+  local domains
+  domains="$(cf_api_json GET "/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${project_name}/domains")"
+
+  local exists
+  exists="$(printf '%s' "$domains" | jq -r --arg name "$domain_name" '((.result // []) | if type == "array" then any(.name == $name) else false end)')"
+
+  if [[ "$exists" == "true" ]]; then
+    echo "Pages domain already configured: ${domain_name} (project: ${project_name})"
+    return 0
+  fi
+
+  local payload
+  payload="$(jq -nc --arg name "$domain_name" '{name:$name}')"
+
+  cf_api_json POST "/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${project_name}/domains" "$payload" >/dev/null
+  echo "Added Pages domain: ${domain_name} (project: ${project_name})"
 }
 
 upsert_dns_cname() {
@@ -177,6 +201,10 @@ upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "get.tyrum.ai" "$MARKETING_PAGES
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "tyrum.com" "$MARKETING_PAGES_HOST"
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "www.tyrum.com" "$MARKETING_PAGES_HOST"
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "docs.tyrum.com" "$DOCS_PAGES_HOST"
+
+echo "==> Ensuring Cloudflare Pages custom domains"
+ensure_pages_domain "$MARKETING_PAGES_PROJECT" "tyrum.ai"
+ensure_pages_domain "$MARKETING_PAGES_PROJECT" "get.tyrum.ai"
 
 echo "==> Deploying redirect Worker script"
 deploy_worker_script

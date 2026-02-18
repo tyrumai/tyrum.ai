@@ -38,7 +38,7 @@ Deploy this repository to Cloudflare Pages:
 
 - Build command: `npm run build`
 - Output directory: `dist`
-- Custom domains: `tyrum.ai`, `www.tyrum.ai`, `get.tyrum.ai`
+- Custom domains (Pages): `tyrum.ai`, `get.tyrum.ai`
 - Pages project name used by CI: `tyrum-ai-marketing`
 
 Set GitHub repository secrets for deploy workflow:
@@ -46,7 +46,7 @@ Set GitHub repository secrets for deploy workflow:
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 
-Canonical host redirects are managed by Cloudflare Worker routes from the infra workflow (`cloudflare-infra.yml`).
+Canonical host redirects (for example `www.tyrum.ai` -> `tyrum.ai`) are managed by Cloudflare Worker routes from the infra workflow (`cloudflare-infra.yml`).
 
 ## Cloudflare Infra Automation (DNS + Redirect Worker)
 
@@ -55,6 +55,8 @@ This repo includes API automation for DNS records plus Worker script/route manag
 - Script: `scripts/cloudflare/apply-infra.sh`
 - Worker module: `workers/canonical-redirect.mjs`
 - Workflow: `.github/workflows/cloudflare-infra.yml`
+
+It also ensures the Cloudflare Pages project has the required custom domains (currently `tyrum.ai` and `get.tyrum.ai`). If these are missing, requests can fail with a Cloudflare `522` even if the Pages `*.pages.dev` site works.
 
 Required GitHub Secrets:
 
@@ -65,6 +67,7 @@ Required GitHub Secrets:
 
 Optional GitHub Variables:
 
+- `MARKETING_PAGES_PROJECT` (default: `tyrum-ai-marketing`)
 - `MARKETING_PAGES_HOST` (default: `tyrum-ai-marketing.pages.dev`)
 - `DOCS_PAGES_HOST` (default: `tyrum-docs.pages.dev`)
 - `WORKER_NAME` (default: `tyrum-host-redirects`)
