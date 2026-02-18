@@ -20,9 +20,16 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Create Pages project (idempotent)
+        uses: cloudflare/wrangler-action@v3
+        continue-on-error: true
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create tyrum-ai-marketing --production-branch=main
       - name: Publish dist/
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=tyrum-ai-marketing
+          command: pages deploy dist --project-name=tyrum-ai-marketing --commit-dirty=true
