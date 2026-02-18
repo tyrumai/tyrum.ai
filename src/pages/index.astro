@@ -5,40 +5,240 @@ const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
 ---
 
 <BaseLayout
-  title="Tyrum | Autonomous Worker Agent"
-  description="Self-hosted autonomous worker agent platform with local-first defaults."
+  title="Tyrum — An AI worker that uses your computer like a human would"
+  description="Open source, self-hosted AI worker agent. Writes code, manages files, browses the web, and uses any app — with keyboard and mouse when it needs to."
 >
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">tyrum</a>
+      <div class="nav-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://docs.tyrum.ai" class="nav-cta">Get started</a>
+      </div>
+    </div>
+  </nav>
+
   <main class="shell">
+    <!-- Hero -->
     <section class="hero">
-      <p class="kicker">Self-hosted. Local-first. Auditable.</p>
-      <h1>Autonomous software work, with human approvals where it matters.</h1>
+      <p class="kicker">Open source &middot; Self-hosted &middot; Local-first</p>
+      <h1>An AI worker that uses your computer like a human would.</h1>
       <p class="lede">
-        Tyrum runs as your personal worker runtime, prefers structured interfaces,
-        and falls back to browser or desktop automation when needed.
+        Tyrum can do anything on a computer that you can. It writes code, manages files, browses the web,
+        and uses any app — with keyboard and mouse when it needs to. It asks before doing anything sketchy
+        and keeps receipts for everything. And it learns your preferences along the way.
       </p>
       <div class="actions">
-        <a href="https://docs.tyrum.com" class="btn btn-primary">Read docs</a>
-        <a href="https://github.com/rhernaus/tyrum" class="btn btn-secondary">View source</a>
+        <a href="https://docs.tyrum.ai" class="btn btn-primary">Get started</a>
+        <a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
       </div>
       <div class="install-box">
-        <p>Install:</p>
+        <p>Install</p>
         <code>{installCmd}</code>
       </div>
     </section>
 
-    <section class="grid">
-      <article>
-        <h2>Operator-friendly defaults</h2>
-        <p>Single-user local profile with explicit policy gates before risky actions.</p>
-      </article>
-      <article>
-        <h2>Evidence for every action</h2>
-        <p>Execution traces are auditable so outcomes are explainable and reproducible.</p>
-      </article>
-      <article>
-        <h2>Model flexibility</h2>
-        <p>Works with OpenAI-compatible providers through BYOK gateway configuration.</p>
-      </article>
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+      <p class="section-label">How It Works</p>
+      <h2 class="section-title">Up and running in three steps.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Install in seconds</h3>
+          <p>One curl command. That's it. No Docker, no cloud account, no "schedule a demo" nonsense.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Plug in the latest models</h3>
+          <p>GPT-5.3-Codex, Opus 4.6, GLM 5, Kimi K2.5 — whatever speaks OpenAI API. Your key, your choice. Swap anytime.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Pick a profile and go</h3>
+          <p>Start with a profile that fits your workflow. Tyrum asks before anything risky, remembers your preferences, and gets smarter the more you work together.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Everything you need, nothing you don't.</h2>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">&#x1F5A5;</div>
+          <h3>Does everything you can</h3>
+          <p>If you can do it on a computer, Tyrum can too. Code, apps, browsers, files, terminals — no limits on what it can work with.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">&#x1F6E1;</div>
+          <h3>Guardrails that learn</h3>
+          <p>Tyrum asks before doing anything sketchy. But it also remembers your preferences — so it gets less annoying and more helpful over time.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">&#x1F4CB;</div>
+          <h3>Receipts for everything</h3>
+          <p>Full execution traces for every action. See exactly what happened, why, and reproduce it anytime.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">&#x1F50C;</div>
+          <h3>Bring the best models</h3>
+          <p>GPT-5.3-Codex, Opus 4.6, GLM 5, Kimi K2.5 — if it speaks OpenAI API, Tyrum works with it. Swap models anytime. Zero lock-in.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">&#x26A1;</div>
+          <h3>APIs first, desktop when needed</h3>
+          <p>Prefers clean API calls for speed and reliability. Falls back to keyboard and mouse when there's no API — just like you would.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">&#x1F513;</div>
+          <h3>Open source, for real</h3>
+          <p>Read every line. No hidden telemetry, no black-box binaries. Fork it, hack it, make it yours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who It's For -->
+    <section class="section" id="who">
+      <p class="section-label">Who It's For</p>
+      <h2 class="section-title">Built for people who build things.</h2>
+      <div class="personas">
+        <div class="persona">
+          <h3>Your personal AI worker</h3>
+          <p>Hand off the tedious stuff. Tyrum handles repetitive tasks across any app while you focus on what matters.</p>
+          <ul>
+            <li>Works with any application on your machine</li>
+            <li>Learns your preferences over time</li>
+            <li>Asks before anything risky</li>
+          </ul>
+        </div>
+        <div class="persona">
+          <h3>Autonomous coworkers</h3>
+          <p>Add AI team members that have their own identity and their own accounts on your systems. They show up, do work, and report back.</p>
+          <ul>
+            <li>Each worker gets its own profile and permissions</li>
+            <li>Works alongside your team naturally</li>
+            <li>Audit trails for everything they do</li>
+          </ul>
+        </div>
+        <div class="persona">
+          <h3>Tinker and extend</h3>
+          <p>It's open source. Don't like something? Change it. Want a new capability? Build it. The code is yours.</p>
+          <ul>
+            <li>Fork-friendly architecture</li>
+            <li>Pluggable model backends</li>
+            <li>Community-driven roadmap</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <p class="section-label">FAQ</p>
+      <h2 class="section-title">Got questions? We've got answers.</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            What AI models work with Tyrum?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Anything that speaks OpenAI API format. GPT-5.3-Codex, Opus 4.6, GLM 5, Kimi K2.5, Llama, Ollama, LM Studio, vLLM — you name it. BYOK.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            What can Tyrum actually do?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Anything you can do on a computer. Write code, use apps, browse the web, manage files, run commands.
+            It uses APIs when they exist and falls back to keyboard and mouse when they don't — just like a human would.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            Does my data get sent to the cloud?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Only to whatever AI model provider you configure. Run a local model and nothing leaves your machine. Period.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            How is this different from Copilot, Cursor, or Devin?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Those tools help you write code. Tyrum can do anything on your computer — not just coding.
+            It's also self-hosted, open source, and model-agnostic. No subscription, no vendor lock-in.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            What systems does it run on?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            macOS and Linux. Needs Node.js 24+.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            Is it free?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Tyrum is free and open source forever. You only pay for AI model API calls (or nothing if you run a local model).
+          </div>
+        </div>
+      </div>
     </section>
   </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo">tyrum</div>
+        <p>An AI worker that uses your computer like a human would. Open source, self-hosted, local-first.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="https://docs.tyrum.ai">Documentation</a></li>
+          <li><a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copy">
+      &copy; {new Date().getFullYear()} Tyrum. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- FAQ toggle -->
+  <script>
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.getAttribute('data-open') === 'true';
+        item.setAttribute('data-open', isOpen ? 'false' : 'true');
+      });
+    });
+  </script>
 </BaseLayout>
