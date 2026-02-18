@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
+---
+
+<BaseLayout
+  title="Tyrum | Autonomous Worker Agent"
+  description="Self-hosted autonomous worker agent platform with local-first defaults."
+>
+  <main class="shell">
+    <section class="hero">
+      <p class="kicker">Self-hosted. Local-first. Auditable.</p>
+      <h1>Autonomous software work, with human approvals where it matters.</h1>
+      <p class="lede">
+        Tyrum runs as your personal worker runtime, prefers structured interfaces,
+        and falls back to browser or desktop automation when needed.
+      </p>
+      <div class="actions">
+        <a href="https://docs.tyrum.com" class="btn btn-primary">Read docs</a>
+        <a href="https://github.com/rhernaus/tyrum" class="btn btn-secondary">View source</a>
+      </div>
+      <div class="install-box">
+        <p>Install:</p>
+        <code>{installCmd}</code>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article>
+        <h2>Operator-friendly defaults</h2>
+        <p>Single-user local profile with explicit policy gates before risky actions.</p>
+      </article>
+      <article>
+        <h2>Evidence for every action</h2>
+        <p>Execution traces are auditable so outcomes are explainable and reproducible.</p>
+      </article>
+      <article>
+        <h2>Model flexibility</h2>
+        <p>Works with OpenAI-compatible providers through BYOK gateway configuration.</p>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
