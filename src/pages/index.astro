@@ -9,10 +9,21 @@ const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
   description="Open source, self-hosted AI worker agent. Writes code, manages files, browses the web, and uses any app — with keyboard and mouse when it needs to."
 >
   <!-- Nav -->
-  <nav class="nav">
+  <nav class="nav" data-open="false">
     <div class="nav-inner">
       <a href="/" class="nav-logo">tyrum</a>
-      <div class="nav-links">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-controls="site-nav"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="site-nav">
         <a href="#how-it-works">How It Works</a>
         <a href="#features">Features</a>
         <a href="#faq">FAQ</a>
@@ -26,12 +37,17 @@ const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
     <!-- Hero -->
     <section class="hero">
       <p class="kicker">Open source &middot; Self-hosted &middot; Local-first</p>
-      <h1>An AI worker that uses your computer like a human would.</h1>
+      <h1>An AI worker for real computer tasks.</h1>
       <p class="lede">
-        Tyrum can do anything on a computer that you can. It writes code, manages files, browses the web,
-        and uses any app — with keyboard and mouse when it needs to. It asks before doing anything sketchy
-        and keeps receipts for everything. And it learns your preferences along the way.
+        Tyrum is an open-source AI worker that can write code, run terminal commands, manage files, browse
+        the web, and use desktop apps. It uses APIs when available and falls back to keyboard and mouse when
+        needed. You choose the model, control the guardrails, and keep a full action trace.
       </p>
+      <ul class="hero-points">
+        <li>Run tasks across terminal, browser, and desktop apps</li>
+        <li>Use APIs first; keyboard and mouse when needed</li>
+        <li>Review full traces and approve risky actions</li>
+      </ul>
       <div class="actions">
         <a href="https://docs.tyrum.ai" class="btn btn-primary">Get started</a>
         <a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
@@ -45,22 +61,22 @@ const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
     <!-- How It Works -->
     <section class="section" id="how-it-works">
       <p class="section-label">How It Works</p>
-      <h2 class="section-title">Up and running in three steps.</h2>
+      <h2 class="section-title">Three steps to useful automation.</h2>
       <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
-          <h3>Install in seconds</h3>
-          <p>One curl command. That's it. No Docker, no cloud account, no "schedule a demo" nonsense.</p>
+          <h3>Install and run</h3>
+          <p>One command installs Tyrum locally. No hosted control plane required.</p>
         </div>
         <div class="step">
           <div class="step-number">2</div>
-          <h3>Plug in the latest models</h3>
-          <p>GPT-5.3-Codex, Opus 4.6, GLM 5, Kimi K2.5 — whatever speaks OpenAI API. Your key, your choice. Swap anytime.</p>
+          <h3>Connect your model</h3>
+          <p>Use any OpenAI-compatible endpoint, including local models.</p>
         </div>
         <div class="step">
           <div class="step-number">3</div>
-          <h3>Pick a profile and go</h3>
-          <p>Start with a profile that fits your workflow. Tyrum asks before anything risky, remembers your preferences, and gets smarter the more you work together.</p>
+          <h3>Hand off tasks, review traces</h3>
+          <p>Give Tyrum work, approve risky actions, and inspect exactly what it did.</p>
         </div>
       </div>
     </section>
@@ -88,7 +104,7 @@ const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
         <div class="feature">
           <div class="feature-icon">&#x1F50C;</div>
           <h3>Bring the best models</h3>
-          <p>GPT-5.3-Codex, Opus 4.6, GLM 5, Kimi K2.5 — if it speaks OpenAI API, Tyrum works with it. Swap models anytime. Zero lock-in.</p>
+          <p>Use hosted or local models through OpenAI-compatible APIs. Switch providers anytime. Zero lock-in.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">&#x26A1;</div>
@@ -149,7 +165,7 @@ const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
             <span class="faq-chevron">&#x25BE;</span>
           </button>
           <div class="faq-a">
-            Anything that speaks OpenAI API format. GPT-5.3-Codex, Opus 4.6, GLM 5, Kimi K2.5, Llama, Ollama, LM Studio, vLLM — you name it. BYOK.
+            Anything that speaks OpenAI-compatible API format, including local backends. Bring your own key or endpoint.
           </div>
         </div>
         <div class="faq-item">
@@ -233,9 +249,38 @@ const installCmd = "curl -fsSL https://get.tyrum.ai/install.sh | bash";
 
   <!-- FAQ toggle -->
   <script>
-    document.querySelectorAll('.faq-q').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.parentElement;
+    const nav = document.querySelector('.nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    const closeNav = () => {
+      if (!nav || !navToggle) return;
+      nav.setAttribute('data-open', 'false');
+      navToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    if (nav && navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = nav.getAttribute('data-open') === 'true';
+        nav.setAttribute('data-open', isOpen ? 'false' : 'true');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeNav);
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+          closeNav();
+        }
+      });
+    }
+
+    document.querySelectorAll('.faq-q').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.parentElement;
+        if (!item) return;
         const isOpen = item.getAttribute('data-open') === 'true';
         item.setAttribute('data-open', isOpen ? 'false' : 'true');
       });
