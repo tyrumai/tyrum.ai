@@ -46,7 +46,7 @@ Set GitHub repository secrets for deploy workflow:
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 
-Set redirect rules for `tyrum.com` and `www.tyrum.com` to `https://tyrum.ai`.
+Canonical host redirects are managed by Cloudflare Worker routes from the infra workflow (`cloudflare-infra.yml`).
 
 ## Cloudflare Infra Automation (DNS + Redirect Worker)
 

@@ -224,7 +224,19 @@ info "Installing Tyrum ${VERSION} (${TAG}) from ${REPO}"
 download_to_file "${BASE_URL}/${CHECKSUMS}" "${TMP_DIR}/${CHECKSUMS}" || fail "failed to download ${CHECKSUMS}"
 download_to_file "${BASE_URL}/${ASSET}" "${TMP_DIR}/${ASSET}" || fail "failed to download ${ASSET}"
 
-EXPECTED_SHA="$(grep -E "  (\./)?${ASSET}$" "${TMP_DIR}/${CHECKSUMS}" | awk '{print $1}')"
+EXPECTED_SHA="$(
+  awk -v asset="$ASSET" '
+    {
+      file = $2
+      sub(/^\.\//, "", file)
+      sub(/^\*/, "", file)
+      if (file == asset) {
+        print $1
+        exit
+      }
+    }
+  ' "${TMP_DIR}/${CHECKSUMS}"
+)"
 [[ -n "$EXPECTED_SHA" ]] || fail "checksum entry for ${ASSET} not found in ${CHECKSUMS}"
 
 ACTUAL_SHA="$(sha256_file "${TMP_DIR}/${ASSET}")"
