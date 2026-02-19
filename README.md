@@ -7,7 +7,9 @@ Public marketing site and installer endpoint for Tyrum.
 - `tyrum.ai`: marketing site
 - `www.tyrum.ai`: redirects to `tyrum.ai`
 - `get.tyrum.ai`: serves `/install.sh`
+- `docs.tyrum.ai`: documentation site
 - `tyrum.com` and `www.tyrum.com`: redirect to `tyrum.ai`
+- `docs.tyrum.com`: documentation alias
 
 ## Local development
 
@@ -56,7 +58,7 @@ This repo includes API automation for DNS records plus Worker script/route manag
 - Worker module: `workers/canonical-redirect.mjs`
 - Workflow: `.github/workflows/cloudflare-infra.yml`
 
-It also ensures the Cloudflare Pages project has the required custom domains (currently `tyrum.ai` and `get.tyrum.ai`). If these are missing, requests can fail with a Cloudflare `522` even if the Pages `*.pages.dev` site works.
+It also ensures Cloudflare Pages projects have required custom domains (`tyrum.ai`, `get.tyrum.ai`, `docs.tyrum.ai`, `docs.tyrum.com`). If these are missing, requests can fail with a Cloudflare `522` even if the Pages `*.pages.dev` site works.
 
 Required GitHub Secrets:
 
@@ -69,6 +71,7 @@ Optional GitHub Variables:
 
 - `MARKETING_PAGES_PROJECT` (default: `tyrum-ai-marketing`)
 - `MARKETING_PAGES_HOST` (default: `tyrum-ai-marketing.pages.dev`)
+- `DOCS_PAGES_PROJECT` (default: `tyrum-docs`)
 - `DOCS_PAGES_HOST` (default: `tyrum-docs.pages.dev`)
 - `WORKER_NAME` (default: `tyrum-host-redirects`)
 - `WORKER_COMPAT_DATE` (default: `2026-02-18`)
