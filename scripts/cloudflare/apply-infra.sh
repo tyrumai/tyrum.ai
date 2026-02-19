@@ -8,6 +8,7 @@ WORKER_COMPAT_DATE="${WORKER_COMPAT_DATE:-2026-02-18}"
 WORKER_NAME="${WORKER_NAME:-tyrum-host-redirects}"
 MARKETING_PAGES_PROJECT="${MARKETING_PAGES_PROJECT:-tyrum-ai-marketing}"
 MARKETING_PAGES_HOST="${MARKETING_PAGES_HOST:-tyrum-ai-marketing.pages.dev}"
+DOCS_PAGES_PROJECT="${DOCS_PAGES_PROJECT:-tyrum-docs}"
 DOCS_PAGES_HOST="${DOCS_PAGES_HOST:-tyrum-docs.pages.dev}"
 
 usage() {
@@ -23,6 +24,7 @@ Required environment variables:
 Optional environment variables:
   MARKETING_PAGES_PROJECT (default: tyrum-ai-marketing)
   MARKETING_PAGES_HOST  (default: tyrum-ai-marketing.pages.dev)
+  DOCS_PAGES_PROJECT    (default: tyrum-docs)
   DOCS_PAGES_HOST       (default: tyrum-docs.pages.dev)
   WORKER_NAME           (default: tyrum-host-redirects)
   WORKER_COMPAT_DATE    (default: 2026-02-18)
@@ -197,6 +199,7 @@ echo "==> Upserting DNS records"
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "tyrum.ai" "$MARKETING_PAGES_HOST"
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "www.tyrum.ai" "$MARKETING_PAGES_HOST"
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "get.tyrum.ai" "$MARKETING_PAGES_HOST"
+upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "docs.tyrum.ai" "$DOCS_PAGES_HOST"
 
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "tyrum.com" "$MARKETING_PAGES_HOST"
 upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "www.tyrum.com" "$MARKETING_PAGES_HOST"
@@ -205,6 +208,8 @@ upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "docs.tyrum.com" "$DOCS_PAGES_H
 echo "==> Ensuring Cloudflare Pages custom domains"
 ensure_pages_domain "$MARKETING_PAGES_PROJECT" "tyrum.ai"
 ensure_pages_domain "$MARKETING_PAGES_PROJECT" "get.tyrum.ai"
+ensure_pages_domain "$DOCS_PAGES_PROJECT" "docs.tyrum.ai"
+ensure_pages_domain "$DOCS_PAGES_PROJECT" "docs.tyrum.com"
 
 echo "==> Deploying redirect Worker script"
 deploy_worker_script
