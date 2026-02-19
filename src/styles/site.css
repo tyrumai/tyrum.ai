@@ -956,87 +956,6 @@ code.inline-code {
   font-size: 0.8rem;
 }
 
-/* Terminal demo */
-
-.demo {
-  max-width: 540px;
-  margin: 2.5rem auto 0;
-  border-radius: var(--radius-xl);
-  border: 1px solid hsl(var(--color-border));
-  background: hsl(220 20% 5%);
-  box-shadow: var(--shadow-lg), 0 0 80px -20px hsl(var(--color-primary) / 0.15);
-  overflow: hidden;
-}
-
-.demo-header {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem 1rem;
-  border-bottom: 1px solid hsl(var(--color-border) / 0.5);
-  background: hsl(220 18% 7%);
-}
-
-.demo-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.demo-dots span {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: hsl(var(--color-muted) / 0.7);
-}
-
-.demo-title {
-  flex: 1;
-  text-align: center;
-  margin-right: 2rem;
-  color: hsl(var(--color-muted-foreground));
-  font-size: 0.72rem;
-  font-weight: 500;
-}
-
-.demo-body {
-  padding: 1.1rem 1.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  line-height: 1.85;
-}
-
-.demo-line {
-  color: hsl(var(--color-muted-foreground));
-  white-space: nowrap;
-}
-
-.demo-indent {
-  padding-left: 1.2rem;
-}
-
-.demo-prompt {
-  color: hsl(var(--color-success));
-  margin-right: 0.5rem;
-  user-select: none;
-}
-
-.demo-cmd {
-  color: hsl(var(--color-foreground));
-}
-
-.demo-accent {
-  color: hsl(var(--color-primary));
-}
-
-.demo-success {
-  color: hsl(var(--color-success));
-}
-
-.demo-result {
-  margin-top: 0.3rem;
-  color: hsl(var(--color-success));
-}
-
 /* Responsive */
 
 @media (min-width: 640px) {
@@ -1215,15 +1134,6 @@ code.inline-code {
     font-size: 0.78rem;
   }
 
-  .demo {
-    margin-top: 2rem;
-  }
-
-  .demo-body {
-    font-size: 0.72rem;
-    padding: 0.9rem 1rem;
-    overflow-x: auto;
-  }
 }
 
 /* Reduced motion */
