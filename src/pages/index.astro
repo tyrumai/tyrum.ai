@@ -53,8 +53,22 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
         <li>Full audit trail. You approve every risky action.</li>
       </ul>
       <div class="actions">
-        <a href="https://docs.tyrum.ai" class="btn btn-primary">Read the docs</a>
+        <a href="https://docs.tyrum.ai" class="btn btn-primary">Get started</a>
         <a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
+      </div>
+      <div class="demo">
+        <div class="demo-header">
+          <div class="demo-dots"><span></span><span></span><span></span></div>
+          <span class="demo-title">Terminal</span>
+        </div>
+        <div class="demo-body">
+          <div class="demo-line"><span class="demo-prompt">$</span><span class="demo-cmd">tyrum "Set up a REST API with auth"</span></div>
+          <div class="demo-line"><span class="demo-accent">◆</span> Planning — 3 steps</div>
+          <div class="demo-line demo-indent"><span class="demo-accent">→</span> Creating src/api/routes.ts</div>
+          <div class="demo-line demo-indent"><span class="demo-accent">→</span> Adding JWT auth middleware</div>
+          <div class="demo-line demo-indent"><span class="demo-accent">→</span> Writing integration tests</div>
+          <div class="demo-line demo-result"><span class="demo-success">✓</span> Done in 34s — 4 files created, 12 tests passing</div>
+        </div>
       </div>
       <div class="install-box">
         <div class="install-header">
@@ -129,32 +143,32 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
       <h2 class="section-title">Built for real work, not demos.</h2>
       <div class="features">
         <div class="feature">
-          <div class="feature-icon">&#x1F5A5;</div>
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
           <h3>Does everything you can</h3>
           <p>Code, apps, browsers, files, terminals — if you can do it on a computer, Tyrum can too.</p>
         </div>
         <div class="feature">
-          <div class="feature-icon">&#x1F6E1;</div>
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <h3>Guardrails that learn</h3>
           <p>Asks before doing anything risky. Remembers your preferences so it gets smarter over time.</p>
         </div>
         <div class="feature">
-          <div class="feature-icon">&#x1F4CB;</div>
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
           <h3>Receipts for everything</h3>
           <p>Full execution traces for every action. See exactly what happened, why, and reproduce it anytime.</p>
         </div>
         <div class="feature">
-          <div class="feature-icon">&#x1F50C;</div>
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg></div>
           <h3>Any model, zero lock-in</h3>
           <p>Use hosted or local models through any OpenAI-compatible API. Switch providers whenever you want.</p>
         </div>
         <div class="feature">
-          <div class="feature-icon">&#x26A1;</div>
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <h3>APIs first, desktop when needed</h3>
           <p>Clean API calls for speed and reliability. Falls back to keyboard and mouse when there's no API — just like you would.</p>
         </div>
         <div class="feature">
-          <div class="feature-icon">&#x1F513;</div>
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
           <h3>Open source, for real</h3>
           <p>Every line of code is public. No telemetry, no black boxes. Fork it, hack it, own it.</p>
         </div>
@@ -167,28 +181,28 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
       <h2 class="section-title">From solo devs to entire teams.</h2>
       <div class="personas">
         <div class="persona">
-          <h3>Your personal AI worker</h3>
-          <p>Hand off the tedious stuff. Tyrum handles repetitive tasks across any app while you focus on what matters.</p>
+          <h3>Solo developers</h3>
+          <p>Stop context-switching. Delegate the repetitive work — file management, boilerplate, testing — and stay in flow.</p>
           <ul>
-            <li>Works with any application on your machine</li>
+            <li>Automate tasks across any app on your machine</li>
             <li>Learns your preferences over time</li>
             <li>Asks before anything risky</li>
           </ul>
         </div>
         <div class="persona">
-          <h3>Autonomous coworkers</h3>
-          <p>AI team members with their own identity and permissions. They show up, do work, and report back — just like a human would.</p>
+          <h3>Engineering teams</h3>
+          <p>Give your team AI workers with their own identity and permissions. They do work and report back — with full audit trails.</p>
           <ul>
-            <li>Each worker gets its own profile and permissions</li>
-            <li>Works alongside your team naturally</li>
-            <li>Audit trails for everything they do</li>
+            <li>Each worker gets its own profile and access</li>
+            <li>Integrates into your existing workflow</li>
+            <li>Every action logged and reviewable</li>
           </ul>
         </div>
         <div class="persona">
-          <h3>Tinker and extend</h3>
-          <p>Don't like something? Change it. Want a new capability? Build it. The code is yours to own.</p>
+          <h3>Open-source builders</h3>
+          <p>Don't like something? Change it. Want a new capability? Build it. The code is yours to fork and own.</p>
           <ul>
-            <li>Fork-friendly architecture</li>
+            <li>Fork-friendly, modular architecture</li>
             <li>Pluggable model backends</li>
             <li>Community-driven roadmap</li>
           </ul>
