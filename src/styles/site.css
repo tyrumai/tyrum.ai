@@ -34,6 +34,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
@@ -158,7 +159,7 @@ h4,
   color: hsl(var(--color-foreground));
 }
 
-.nav-cta {
+.nav-links .nav-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -173,7 +174,7 @@ h4,
   transition: background-color 140ms ease, transform 140ms ease;
 }
 
-.nav-cta:hover {
+.nav-links .nav-cta:hover {
   background: hsl(var(--color-primary) / 0.9);
   transform: translateY(-1px);
 }
@@ -237,6 +238,7 @@ h4,
   display: inline-flex;
   align-items: center;
   overflow: hidden;
+  margin: 0;
   border-radius: var(--radius-pill);
   border: 1px solid hsl(var(--color-primary) / 0.2);
   background: hsl(var(--color-primary) / 0.08);
@@ -561,6 +563,10 @@ code.inline-code {
   border-radius: var(--radius-xl);
   background: hsl(var(--color-card) / 0.88);
   box-shadow: var(--shadow-sm);
+}
+
+.faq-item {
+  overflow: hidden;
 }
 
 /* How It Works */
