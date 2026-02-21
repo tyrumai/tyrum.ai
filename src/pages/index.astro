@@ -9,7 +9,6 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
   title="Tyrum — An AI worker that uses your computer like a human would"
   description="Open source, self-hosted AI worker agent. Writes code, manages files, browses the web, and uses any app — with keyboard and mouse when it needs to."
 >
-  <!-- Nav -->
   <nav class="nav" data-open="false">
     <div class="nav-inner">
       <a href="/" class="nav-logo">tyrum</a>
@@ -25,86 +24,93 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
         <span></span>
       </button>
       <div class="nav-links" id="site-nav">
-        <a href="#how-it-works">How It Works</a>
         <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
         <a href="#faq">FAQ</a>
         <a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://docs.tyrum.ai" class="nav-cta">Try it now</a>
+        <a href="https://docs.tyrum.ai" class="nav-cta">Get started</a>
       </div>
     </div>
   </nav>
 
   <main class="shell">
-    <!-- Hero -->
     <section class="hero">
-      <p class="kicker">
-        <span class="kicker-dot"></span>
-        Open source &middot; Self-hosted &middot; Local-first
+      <span class="announcement">
+        <span class="announcement-dot"></span>
+        Open source · Self-hosted · Local-first
+      </span>
+
+      <h1>Your computer, on autopilot.</h1>
+
+      <p class="hero-subtitle">
+        Tyrum is an AI that does real work on your machine — writing code,
+        browsing the web, managing files, and running commands. Free forever
+        and ready in 30&nbsp;seconds.
       </p>
-      <h1 class="gradient-text">Your computer, on autopilot.</h1>
-      <p class="lede">
-        Tyrum is an AI that does real work on your machine. Writing code,
-        browsing the web, managing files, running commands. Open source,
-        free forever, and ready in 30 seconds.
-      </p>
-      <ul class="hero-points">
-        <li>Works with any app on your computer</li>
-        <li>Fast API calls. Human-like fallback.</li>
-        <li>Full audit trail. You approve every risky action.</li>
-      </ul>
-      <div class="actions">
+
+      <div class="install-inline">
+        <code>{installCmd}</code>
+        <button class="copy-btn" type="button" aria-label="Copy to clipboard" data-copy={installCmd}>
+          <svg class="icon-copy" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="icon-check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </button>
+      </div>
+      <span class="install-hint">
+        macOS &amp; Linux · Requires Node.js 24+ ·
+        <a href={releasesUrl} target="_blank" rel="noopener">Other platforms</a>
+      </span>
+
+      <div class="hero-actions">
         <a href="https://docs.tyrum.ai" class="btn btn-primary">Get started</a>
         <a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
       </div>
-      <div class="install-box">
-        <div class="install-header">
-          <p class="install-label">Install</p>
-          <div class="install-tabs" role="tablist">
-            <button role="tab" class="install-tab" data-tab="script" aria-selected="true" type="button">Script</button>
-            <button role="tab" class="install-tab" data-tab="windows" aria-selected="false" type="button">Windows</button>
-            <button role="tab" class="install-tab" data-tab="linux" aria-selected="false" type="button">Linux</button>
-            <button role="tab" class="install-tab" data-tab="macos" aria-selected="false" type="button">macOS</button>
-          </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" id="features">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Built for real work, not demos.</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h3>Full computer control</h3>
+          <p>Code, apps, browsers, files, terminals — if you can do it on a computer, Tyrum can too.</p>
         </div>
-        <div class="install-panel" role="tabpanel" data-panel="script">
-          <div class="install-cmd">
-            <code>{installCmd}</code>
-            <button class="copy-btn" type="button" aria-label="Copy to clipboard" data-copy={installCmd}>
-              <svg class="icon-copy" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <svg class="icon-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            </button>
-          </div>
-          <span class="install-hint">Works on macOS and Linux · Requires Node.js 24+</span>
+        <div class="feature-card">
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg></div>
+          <h3>Any model, zero lock-in</h3>
+          <p>Use hosted or local models through any OpenAI-compatible API. Switch providers whenever you want.</p>
         </div>
-        <div class="install-panel" role="tabpanel" data-panel="windows" hidden>
-          <p class="install-desc">Download the latest <code class="inline-code">.exe</code> installer from GitHub Releases.</p>
-          <a href={releasesUrl} target="_blank" rel="noopener" class="install-download">
-            Download for Windows
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-          </a>
+        <div class="feature-card">
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>API-first architecture</h3>
+          <p>Clean API calls for speed and reliability. Falls back to keyboard and mouse when there's no API — just like you would.</p>
         </div>
-        <div class="install-panel" role="tabpanel" data-panel="linux" hidden>
-          <p class="install-desc">Download the latest <code class="inline-code">.tar.gz</code> archive from GitHub Releases.</p>
-          <a href={releasesUrl} target="_blank" rel="noopener" class="install-download">
-            Download for Linux
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-          </a>
+        <div class="feature-card">
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Guardrails that learn</h3>
+          <p>Asks before doing anything risky. Remembers your preferences so it gets smarter over time.</p>
         </div>
-        <div class="install-panel" role="tabpanel" data-panel="macos" hidden>
-          <p class="install-desc">Download the latest <code class="inline-code">.dmg</code> installer from GitHub Releases.</p>
-          <a href={releasesUrl} target="_blank" rel="noopener" class="install-download">
-            Download for macOS
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-          </a>
+        <div class="feature-card">
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <h3>Receipts for everything</h3>
+          <p>Full execution traces for every action. See exactly what happened, why, and reproduce it anytime.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
+          <h3>Open source, for real</h3>
+          <p>Every line of code is public. No telemetry, no black boxes. Fork it, hack it, own it.</p>
         </div>
       </div>
     </section>
 
-    <!-- How It Works -->
+    <hr class="section-divider" />
+
     <section class="section" id="how-it-works">
       <p class="section-label">How It Works</p>
       <h2 class="section-title">Up and running in 30 seconds.</h2>
-      <div class="steps">
+      <div class="steps-grid">
         <div class="step">
           <div class="step-number">1</div>
           <h3>Install</h3>
@@ -123,174 +129,85 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
       </div>
     </section>
 
-    <!-- Features -->
-    <section class="section" id="features">
-      <p class="section-label">Features</p>
-      <h2 class="section-title">Built for real work, not demos.</h2>
-      <div class="features">
-        <div class="feature">
-          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <h3>Does everything you can</h3>
-          <p>Code, apps, browsers, files, terminals — if you can do it on a computer, Tyrum can too.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3>Guardrails that learn</h3>
-          <p>Asks before doing anything risky. Remembers your preferences so it gets smarter over time.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-          <h3>Receipts for everything</h3>
-          <p>Full execution traces for every action. See exactly what happened, why, and reproduce it anytime.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg></div>
-          <h3>Any model, zero lock-in</h3>
-          <p>Use hosted or local models through any OpenAI-compatible API. Switch providers whenever you want.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-          <h3>APIs first, desktop when needed</h3>
-          <p>Clean API calls for speed and reliability. Falls back to keyboard and mouse when there's no API — just like you would.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
-          <h3>Open source, for real</h3>
-          <p>Every line of code is public. No telemetry, no black boxes. Fork it, hack it, own it.</p>
-        </div>
-      </div>
-    </section>
+    <hr class="section-divider" />
 
-    <!-- Who It's For -->
-    <section class="section" id="who">
-      <p class="section-label">Who It's For</p>
-      <h2 class="section-title">From solo devs to entire teams.</h2>
-      <div class="personas">
-        <div class="persona">
-          <h3>Solo developers</h3>
-          <p>Stop context-switching. Delegate the repetitive work — file management, boilerplate, testing — and stay in flow.</p>
-          <ul>
-            <li>Automate tasks across any app on your machine</li>
-            <li>Learns your preferences over time</li>
-            <li>Asks before anything risky</li>
-          </ul>
-        </div>
-        <div class="persona">
-          <h3>Engineering teams</h3>
-          <p>Give your team AI workers with their own identity and permissions. They do work and report back — with full audit trails.</p>
-          <ul>
-            <li>Each worker gets its own profile and access</li>
-            <li>Integrates into your existing workflow</li>
-            <li>Every action logged and reviewable</li>
-          </ul>
-        </div>
-        <div class="persona">
-          <h3>Open-source builders</h3>
-          <p>Don't like something? Change it. Want a new capability? Build it. The code is yours to fork and own.</p>
-          <ul>
-            <li>Fork-friendly, modular architecture</li>
-            <li>Pluggable model backends</li>
-            <li>Community-driven roadmap</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-      <h2 class="gradient-text">Ready to put your computer on autopilot?</h2>
+    <section class="cta-section">
+      <h2>Ready to put your computer on autopilot?</h2>
       <p>Install Tyrum in seconds. Free and open source — no account, no credit card, no catch.</p>
-      <div class="actions">
+      <div class="cta-actions">
         <a href="https://docs.tyrum.ai" class="btn btn-primary">Get started free</a>
         <a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener" class="btn btn-secondary">Star on GitHub</a>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section" id="faq">
-      <div class="faq-layout">
-        <div class="faq-aside">
-          <p class="section-label faq-label">FAQ</p>
-          <h2 class="section-title faq-heading">Got questions?</h2>
-          <p class="faq-support">
-            Can't find what you're looking for?
-            <a href="https://github.com/tyrumai/tyrum/discussions">Ask the community</a>.
-          </p>
+    <hr class="section-divider" />
+
+    <section class="faq-section" id="faq">
+      <h2 class="faq-heading">FAQs</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            What AI models work with Tyrum?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Anything that speaks the OpenAI-compatible API format — GPT-4o, Claude, Llama, Mistral, or any local model you run yourself. Bring your own key or endpoint.
+          </div>
         </div>
-        <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-q" type="button">
-              What AI models work with Tyrum?
-              <span class="faq-chevron">&#x25BE;</span>
-            </button>
-            <div class="faq-a">
-              Anything that speaks the OpenAI-compatible API format — GPT-4o, Claude, Llama, Mistral, or any local model you run yourself. Bring your own key or endpoint.
-            </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            What can Tyrum actually do?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Anything you can do on a computer. Write code, use apps, browse the web, manage files, run commands. It uses APIs when they exist and falls back to keyboard and mouse when they don't — just like a human would.
           </div>
-          <div class="faq-item">
-            <button class="faq-q" type="button">
-              What can Tyrum actually do?
-              <span class="faq-chevron">&#x25BE;</span>
-            </button>
-            <div class="faq-a">
-              Anything you can do on a computer. Write code, use apps, browse the web, manage files, run commands. It uses APIs when they exist and falls back to keyboard and mouse when they don't — just like a human would.
-            </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            Does my data stay on my machine?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Yes. Data only goes to whatever AI model provider you configure. Run a local model and nothing leaves your machine. Period.
           </div>
-          <div class="faq-item">
-            <button class="faq-q" type="button">
-              Does my data stay on my machine?
-              <span class="faq-chevron">&#x25BE;</span>
-            </button>
-            <div class="faq-a">
-              Yes. Data only goes to whatever AI model provider you configure. Run a local model and nothing leaves your machine. Period.
-            </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            How is this different from Copilot, Cursor, or Devin?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Those tools help you write code. Tyrum can do anything on your computer — not just coding. It's also self-hosted, open source, and model-agnostic. No subscription, no vendor lock-in.
           </div>
-          <div class="faq-item">
-            <button class="faq-q" type="button">
-              How is this different from Copilot, Cursor, or Devin?
-              <span class="faq-chevron">&#x25BE;</span>
-            </button>
-            <div class="faq-a">
-              Those tools help you write code. Tyrum can do anything on your computer — not just coding. It's also self-hosted, open source, and model-agnostic. No subscription, no vendor lock-in.
-            </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            What systems does it run on?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Windows, macOS, and Linux. Use the install script on macOS/Linux (requires Node.js 24+), or download standalone binaries for any platform from <a href="https://github.com/tyrumai/tyrum/releases/latest">GitHub Releases</a>.
           </div>
-          <div class="faq-item">
-            <button class="faq-q" type="button">
-              What systems does it run on?
-              <span class="faq-chevron">&#x25BE;</span>
-            </button>
-            <div class="faq-a">
-              Windows, macOS, and Linux. Use the install script on macOS/Linux (requires Node.js 24+), or download standalone binaries for any platform from <a href="https://github.com/tyrumai/tyrum/releases/latest">GitHub Releases</a>.
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q" type="button">
-              Is it free?
-              <span class="faq-chevron">&#x25BE;</span>
-            </button>
-            <div class="faq-a">
-              Completely free and open source — forever. You only pay for AI model API calls, or nothing at all if you run a local model. No account required.
-            </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            Is it free?
+            <span class="faq-chevron">&#x25BE;</span>
+          </button>
+          <div class="faq-a">
+            Completely free and open source — forever. You only pay for AI model API calls, or nothing at all if you run a local model. No account required.
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="nav-logo">tyrum</div>
-        <p>An AI worker that uses your computer like a human would. Open source, self-hosted, local-first.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Product</h4>
-        <ul>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
+        <p>An AI worker that uses your computer like a human would.</p>
       </div>
       <div class="footer-col">
         <h4>Resources</h4>
@@ -298,16 +215,24 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
           <li><a href="https://docs.tyrum.ai">Documentation</a></li>
           <li><a href="https://github.com/tyrumai/tyrum" target="_blank" rel="noopener">GitHub</a></li>
           <li><a href={releasesUrl} target="_blank" rel="noopener">Downloads</a></li>
+          <li><a href="https://github.com/tyrumai/tyrum/discussions" target="_blank" rel="noopener">Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#faq">FAQ</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-copy">
+    <div class="footer-bottom">
       &copy; {new Date().getFullYear()} Tyrum. All rights reserved.
     </div>
   </footer>
 
   <script>
-    // Nav toggle
     const nav = document.querySelector('.nav');
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
@@ -334,7 +259,6 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
       });
     }
 
-    // FAQ toggle
     document.querySelectorAll('.faq-q').forEach(button => {
       button.addEventListener('click', () => {
         const item = button.parentElement;
@@ -344,22 +268,6 @@ const releasesUrl = "https://github.com/tyrumai/tyrum/releases/latest";
       });
     });
 
-    // Install tabs
-    const tabs = document.querySelectorAll('.install-tab');
-    const panels = document.querySelectorAll('.install-panel');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-tab');
-        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
-        tab.setAttribute('aria-selected', 'true');
-        panels.forEach(panel => {
-          panel.hidden = panel.getAttribute('data-panel') !== target;
-        });
-      });
-    });
-
-    // Copy to clipboard
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const text = btn.getAttribute('data-copy');
