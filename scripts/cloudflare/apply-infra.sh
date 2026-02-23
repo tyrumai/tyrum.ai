@@ -101,20 +101,29 @@ normalize_zone_env_suffix() {
 zone_id_for() {
   local zone_name="$1"
 
+  local env_suffix
+  env_suffix="$(normalize_zone_env_suffix "$zone_name")"
+  local cache_var="ZONE_ID_CACHE_${env_suffix}"
+
+  if [[ -n "${!cache_var:-}" ]]; then
+    printf '%s' "${!cache_var}"
+    return 0
+  fi
+
   if [[ -n "${CLOUDFLARE_ZONE_ID_MAP:-}" ]]; then
     local mapped
     mapped="$(printf '%s' "$CLOUDFLARE_ZONE_ID_MAP" | jq -r --arg name "$zone_name" '.[$name] // empty')"
     if [[ -n "$mapped" && "$mapped" != "null" ]]; then
+      printf -v "$cache_var" '%s' "$mapped"
       printf '%s' "$mapped"
       return 0
     fi
   fi
 
-  local env_suffix
-  env_suffix="$(normalize_zone_env_suffix "$zone_name")"
   local env_name="CLOUDFLARE_ZONE_ID_${env_suffix}"
 
   if [[ -n "${!env_name:-}" ]]; then
+    printf -v "$cache_var" '%s' "${!env_name}"
     printf '%s' "${!env_name}"
     return 0
   fi
@@ -131,6 +140,7 @@ zone_id_for() {
     exit 1
   fi
 
+  printf -v "$cache_var" '%s' "$found_id"
   printf '%s' "$found_id"
 }
 
