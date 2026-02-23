@@ -10,6 +10,8 @@ MARKETING_PAGES_PROJECT="${MARKETING_PAGES_PROJECT:-tyrum-ai-marketing}"
 MARKETING_PAGES_HOST="${MARKETING_PAGES_HOST:-tyrum-ai-marketing.pages.dev}"
 DOCS_PAGES_PROJECT="${DOCS_PAGES_PROJECT:-tyrum-docs}"
 DOCS_PAGES_HOST="${DOCS_PAGES_HOST:-tyrum-docs.pages.dev}"
+EXTRA_REDIRECT_APEX_DOMAINS="${EXTRA_REDIRECT_APEX_DOMAINS:-}"
+CLOUDFLARE_ZONE_ID_MAP="${CLOUDFLARE_ZONE_ID_MAP:-}"
 
 usage() {
   cat <<'USAGE'
@@ -18,14 +20,16 @@ Apply Tyrum DNS + redirect worker infrastructure in Cloudflare.
 Required environment variables:
   CLOUDFLARE_API_TOKEN
   CLOUDFLARE_ACCOUNT_ID
-  CLOUDFLARE_ZONE_ID_TYRUM_AI
-  CLOUDFLARE_ZONE_ID_TYRUM_COM
 
 Optional environment variables:
+  CLOUDFLARE_ZONE_ID_TYRUM_AI (skips zone lookup for tyrum.ai)
+  CLOUDFLARE_ZONE_ID_TYRUM_COM (skips zone lookup for tyrum.com)
+  CLOUDFLARE_ZONE_ID_MAP (JSON map of zone name -> zone ID, ex: {"tyrum.ai":"...","tyrum.com":"..."})
   MARKETING_PAGES_PROJECT (default: tyrum-ai-marketing)
   MARKETING_PAGES_HOST  (default: tyrum-ai-marketing.pages.dev)
   DOCS_PAGES_PROJECT    (default: tyrum-docs)
   DOCS_PAGES_HOST       (default: tyrum-docs.pages.dev)
+  EXTRA_REDIRECT_APEX_DOMAINS (comma/space separated apex domains to redirect like tyrum.com, ex: "tyrum.app, tyrum.io")
   WORKER_NAME           (default: tyrum-host-redirects)
   WORKER_COMPAT_DATE    (default: 2026-02-18)
 
@@ -85,6 +89,84 @@ cf_api_json() {
   fi
 
   printf '%s' "$response"
+}
+
+normalize_zone_env_suffix() {
+  local zone_name="$1"
+  zone_name="${zone_name//./_}"
+  zone_name="${zone_name//-/_}"
+  printf '%s' "$zone_name" | tr '[:lower:]' '[:upper:]'
+}
+
+zone_id_for() {
+  local zone_name="$1"
+
+  if [[ -n "${CLOUDFLARE_ZONE_ID_MAP:-}" ]]; then
+    local mapped
+    mapped="$(printf '%s' "$CLOUDFLARE_ZONE_ID_MAP" | jq -r --arg name "$zone_name" '.[$name] // empty')"
+    if [[ -n "$mapped" && "$mapped" != "null" ]]; then
+      printf '%s' "$mapped"
+      return 0
+    fi
+  fi
+
+  local env_suffix
+  env_suffix="$(normalize_zone_env_suffix "$zone_name")"
+  local env_name="CLOUDFLARE_ZONE_ID_${env_suffix}"
+
+  if [[ -n "${!env_name:-}" ]]; then
+    printf '%s' "${!env_name}"
+    return 0
+  fi
+
+  local zones
+  zones="$(cf_api_json GET "/zones?name=${zone_name}")"
+
+  local found_id
+  found_id="$(printf '%s' "$zones" | jq -r '.result[0].id // empty')"
+
+  if [[ -z "$found_id" ]]; then
+    echo "error: unable to resolve Cloudflare zone ID for ${zone_name}" >&2
+    echo "       Provide ${env_name}, set CLOUDFLARE_ZONE_ID_MAP, or grant the API token Zone:Read." >&2
+    exit 1
+  fi
+
+  printf '%s' "$found_id"
+}
+
+sanitize_apex_domain() {
+  local domain="$1"
+  domain="${domain#http://}"
+  domain="${domain#https://}"
+  domain="${domain%%/*}"
+  domain="${domain%.}"
+  domain="$(printf '%s' "$domain" | tr '[:upper:]' '[:lower:]')"
+  domain="${domain#www.}"
+  printf '%s' "$domain"
+}
+
+list_extra_redirect_domains() {
+  local raw="${EXTRA_REDIRECT_APEX_DOMAINS:-}"
+  if [[ -z "$raw" ]]; then
+    return 0
+  fi
+
+  raw="${raw//,/ }"
+  raw="${raw//$'\n'/ }"
+  raw="${raw//$'\t'/ }"
+  raw="${raw//$'\r'/ }"
+
+  local domain
+  for domain in $raw; do
+    domain="$(sanitize_apex_domain "$domain")"
+    if [[ -z "$domain" ]]; then
+      continue
+    fi
+    if [[ "$domain" == "tyrum.ai" || "$domain" == "tyrum.com" ]]; then
+      continue
+    fi
+    printf '%s\n' "$domain"
+  done
 }
 
 ensure_pages_domain() {
@@ -187,23 +269,31 @@ require_cmd curl
 require_cmd jq
 require_env CLOUDFLARE_API_TOKEN
 require_env CLOUDFLARE_ACCOUNT_ID
-require_env CLOUDFLARE_ZONE_ID_TYRUM_AI
-require_env CLOUDFLARE_ZONE_ID_TYRUM_COM
 
 if [[ ! -f "$WORKER_ENTRYPOINT" ]]; then
   echo "error: worker entrypoint not found: $WORKER_ENTRYPOINT" >&2
   exit 1
 fi
 
-echo "==> Upserting DNS records"
-upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "tyrum.ai" "$MARKETING_PAGES_HOST"
-upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "www.tyrum.ai" "$MARKETING_PAGES_HOST"
-upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "get.tyrum.ai" "$MARKETING_PAGES_HOST"
-upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "docs.tyrum.ai" "$DOCS_PAGES_HOST"
+TYRUM_AI_ZONE_ID="$(zone_id_for "tyrum.ai")"
+TYRUM_COM_ZONE_ID="$(zone_id_for "tyrum.com")"
 
-upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "tyrum.com" "$MARKETING_PAGES_HOST"
-upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "www.tyrum.com" "$MARKETING_PAGES_HOST"
-upsert_dns_cname "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "docs.tyrum.com" "$DOCS_PAGES_HOST"
+echo "==> Upserting DNS records"
+upsert_dns_cname "$TYRUM_AI_ZONE_ID" "tyrum.ai" "$MARKETING_PAGES_HOST"
+upsert_dns_cname "$TYRUM_AI_ZONE_ID" "www.tyrum.ai" "$MARKETING_PAGES_HOST"
+upsert_dns_cname "$TYRUM_AI_ZONE_ID" "get.tyrum.ai" "$MARKETING_PAGES_HOST"
+upsert_dns_cname "$TYRUM_AI_ZONE_ID" "docs.tyrum.ai" "$DOCS_PAGES_HOST"
+
+upsert_dns_cname "$TYRUM_COM_ZONE_ID" "tyrum.com" "$MARKETING_PAGES_HOST"
+upsert_dns_cname "$TYRUM_COM_ZONE_ID" "www.tyrum.com" "$MARKETING_PAGES_HOST"
+upsert_dns_cname "$TYRUM_COM_ZONE_ID" "docs.tyrum.com" "$DOCS_PAGES_HOST"
+
+while IFS= read -r apex; do
+  extra_zone_id="$(zone_id_for "$apex")"
+  upsert_dns_cname "$extra_zone_id" "$apex" "$MARKETING_PAGES_HOST"
+  upsert_dns_cname "$extra_zone_id" "www.${apex}" "$MARKETING_PAGES_HOST"
+  upsert_dns_cname "$extra_zone_id" "docs.${apex}" "$DOCS_PAGES_HOST"
+done < <(list_extra_redirect_domains | sort -u)
 
 echo "==> Ensuring Cloudflare Pages custom domains"
 ensure_pages_domain "$MARKETING_PAGES_PROJECT" "tyrum.ai"
@@ -211,12 +301,22 @@ ensure_pages_domain "$MARKETING_PAGES_PROJECT" "get.tyrum.ai"
 ensure_pages_domain "$DOCS_PAGES_PROJECT" "docs.tyrum.ai"
 ensure_pages_domain "$DOCS_PAGES_PROJECT" "docs.tyrum.com"
 
+while IFS= read -r apex; do
+  ensure_pages_domain "$DOCS_PAGES_PROJECT" "docs.${apex}"
+done < <(list_extra_redirect_domains | sort -u)
+
 echo "==> Deploying redirect Worker script"
 deploy_worker_script
 
 echo "==> Upserting redirect Worker routes"
-upsert_worker_route "$CLOUDFLARE_ZONE_ID_TYRUM_AI" "www.tyrum.ai/*"
-upsert_worker_route "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "tyrum.com/*"
-upsert_worker_route "$CLOUDFLARE_ZONE_ID_TYRUM_COM" "www.tyrum.com/*"
+upsert_worker_route "$TYRUM_AI_ZONE_ID" "www.tyrum.ai/*"
+upsert_worker_route "$TYRUM_COM_ZONE_ID" "tyrum.com/*"
+upsert_worker_route "$TYRUM_COM_ZONE_ID" "www.tyrum.com/*"
+
+while IFS= read -r apex; do
+  extra_zone_id="$(zone_id_for "$apex")"
+  upsert_worker_route "$extra_zone_id" "${apex}/*"
+  upsert_worker_route "$extra_zone_id" "www.${apex}/*"
+done < <(list_extra_redirect_domains | sort -u)
 
 echo "==> Cloudflare infrastructure apply complete"
