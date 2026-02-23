@@ -64,11 +64,11 @@ Required GitHub Secrets:
 
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_ZONE_ID_TYRUM_AI`
-- `CLOUDFLARE_ZONE_ID_TYRUM_COM`
 
 Optional GitHub Variables:
 
+- `EXTRA_REDIRECT_APEX_DOMAINS` (ex: `tyrum.app, tyrum.io`) — configures additional apex domains to redirect like `tyrum.com`
+- `CLOUDFLARE_ZONE_ID_MAP` (JSON map of zone name -> zone ID) — only needed if your API token cannot read/list zones for lookups
 - `MARKETING_PAGES_PROJECT` (default: `tyrum-ai-marketing`)
 - `MARKETING_PAGES_HOST` (default: `tyrum-ai-marketing.pages.dev`)
 - `DOCS_PAGES_PROJECT` (default: `tyrum-docs`)
@@ -81,7 +81,6 @@ Local run example:
 ```bash
 export CLOUDFLARE_API_TOKEN=...
 export CLOUDFLARE_ACCOUNT_ID=...
-export CLOUDFLARE_ZONE_ID_TYRUM_AI=...
-export CLOUDFLARE_ZONE_ID_TYRUM_COM=...
+export EXTRA_REDIRECT_APEX_DOMAINS="tyrum.app, tyrum.io"
 bash scripts/cloudflare/apply-infra.sh
 ```
