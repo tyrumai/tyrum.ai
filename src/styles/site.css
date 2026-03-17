@@ -86,12 +86,11 @@ h1, h2, h3, h4 {
   gap: 0.5rem;
 }
 
-.nav-logo::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary);
+.nav-logo-mark {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .nav-links {
