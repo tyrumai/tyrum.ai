@@ -1,17 +1,17 @@
 :root {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --bg: #000;
-  --bg-subtle: #0a0a0a;
-  --fg: #ededed;
-  --fg-muted: #888;
-  --fg-faint: #666;
-  --border: #1a1a1a;
-  --border-hover: #333;
-  --primary: #6366f1;
-  --primary-dim: rgba(99, 102, 241, 0.12);
-  --success: #22c55e;
+  --bg: #141614;
+  --bg-subtle: #1b1d1b;
+  --fg: #ede9df;
+  --fg-muted: #9e9889;
+  --fg-faint: #7d7b72;
+  --border: #2e322d;
+  --border-hover: #3d413c;
+  --primary: #c85c1d;
+  --primary-dim: rgba(200, 92, 29, 0.12);
+  --success: #3d8a56;
 }
 
 * {
@@ -40,7 +40,7 @@ a {
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(200, 92, 29, 0.3);
   color: var(--fg);
 }
 
@@ -60,7 +60,7 @@ h1, h2, h3, h4 {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(20, 22, 20, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -80,7 +80,7 @@ h1, h2, h3, h4 {
   font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: #fff;
+  color: var(--fg);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -200,8 +200,8 @@ h1, h2, h3, h4 {
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
-  50% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(61, 138, 86, 0.5); }
+  50% { box-shadow: 0 0 0 4px rgba(61, 138, 86, 0); }
 }
 
 .hero h1 {
@@ -211,7 +211,7 @@ h1, h2, h3, h4 {
   letter-spacing: -0.04em;
   line-height: 1.05;
   text-wrap: balance;
-  background: linear-gradient(to bottom, #fff 30%, #999);
+  background: linear-gradient(to bottom, #ede9df 30%, #9e9889);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -491,7 +491,7 @@ h1, h2, h3, h4 {
   font-size: 2.25rem;
   font-weight: 700;
   letter-spacing: -0.03em;
-  background: linear-gradient(to bottom, #fff 30%, #999);
+  background: linear-gradient(to bottom, #ede9df 30%, #9e9889);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -745,7 +745,7 @@ h1, h2, h3, h4 {
   }
 
   .nav-links a:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(237, 233, 223, 0.05);
   }
 
   .nav-links .nav-cta {
